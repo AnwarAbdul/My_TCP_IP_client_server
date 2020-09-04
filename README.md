@@ -12,4 +12,7 @@ Steps followed for Server creation
 9. Inside while loop, "recv" call processes the message from client and the same is relayed back to client using "send".
 
 Steps followed for creating TCP/IP client
-1. 
+1. Create a socket using "socket" system call
+2. Initialize a sockaddr_in structure for the socket with the target server's port number and IP address. If you are trying to connect to server on your localhost, provide "127.0.0.1" string
+3. Use "connect" system call to connect to server with created socket
+4. Once connected, send messages from stdin.
