@@ -1,5 +1,15 @@
 This is a simple TCP/IP client server project written in C++ for Unix based operating systems. Only tested on MacOS so far.
 
+Usage
+1. Compilation needs a Unix OS with g++ compiler
+2. There exists a Makefile in the folder which will implement the compilation rules
+3. Run $make build
+4. 2 executables, "tcpip_server" & "tcpip_client" are created.
+5. Server can be run on a system by executing $./tcpip_server
+6. The client can be run on same system or different one by executing $./tcp_client
+7. The server needs to be configured with its port number and IP address in "server_config.txt" file in subsequent lines. By default the server address provided is "127.0.0.1" which is localhost and port number as 54000
+8. The client initiates the communication as of now
+
 Steps followed for Server creation
 1. Create listening socket using "socket" system call
 2. Intialize a sockaddr_in structure which will have the listening socket details such as port number, sin_family and the actual IP address in Networking format

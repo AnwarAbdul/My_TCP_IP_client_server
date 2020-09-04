@@ -22,7 +22,13 @@ int main(){
 	}
 
 	//Setting up the socket with address which shall be "localhost" and the port number to which it must connect to
-	sockaddr_in socket_address = setup_socket(54000,"127.0.0.1");
+	std::ifstream inf("server_config.txt");
+	std::string server_address; int portNumber;
+	inf>>portNumber;
+	inf>>server_address;
+	inf.close();
+
+	sockaddr_in socket_address = setup_socket(portNumber,server_address.c_str());
 
 	//Connect to the server
 	ret = connect(_socket,(sockaddr *)&socket_address,sizeof(socket_address));

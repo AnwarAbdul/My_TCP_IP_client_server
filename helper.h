@@ -19,6 +19,7 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <netdb.h>
+#include <fstream>
 
 /*
  * @brief API for creating a socket
