@@ -1,4 +1,4 @@
-This is a simple TCP/IP client server project written in C++. Tested out on MacOS
+This is a simple TCP/IP client server project written in C++ for Unix based operating systems. Only tested on MacOS so far.
 
 Steps followed for Server creation
 1. Create listening socket using "socket" system call
