@@ -38,6 +38,15 @@ int create_socket();
 sockaddr_in setup_listening_socket(int,int);
 
 /*
+ * @brief API for binding socket ID to specified address and port info present in its corresponding sockaddr_in structure
+ *
+ * @param Listening socket file id
+ * @param sockaddr_in pointer to the socket info of address & port
+ * @return Return code of "bind" system call
+ */
+int bind_socket_port(int,sockaddr_in *);
+
+/*
  * @brief API for starting the listening on listening socket
  *
  * @param Listening socket file ID

@@ -17,9 +17,13 @@ sockaddr_in setup_listening_socket(int listening_socket, int portNumber){
 
 	address.sin_family = PF_INET;
 	address.sin_port = htons(portNumber); //htons helps to convert the given port number into a format which will be understood at the right endian level 
-	inet_pton(listening_socket,"127.0.0.1",(void *)&address.sin_addr);
+	inet_pton(PF_INET,"127.0.0.1",(void *)&address.sin_addr);
 
 	return address;
+}
+
+int bind_socket_port(int listening_socket, sockaddr_in* address){
+	return bind(listening_socket,(sockaddr *)address,sizeof(*address));
 }
 
 int listening(int listening_socket){

@@ -26,7 +26,8 @@ int main(){
 	sockaddr_in listening_socket_address = setup_listening_socket(listening_socket,54000);
 
 	//Binding the listening socket to the address and port specified
-	if(bind(listening_socket,(sockaddr *)&listening_socket_address,sizeof(listening_socket_address)) == -1){
+	ret = bind_socket_port(listening_socket,&listening_socket_address);
+	if(ret == -1){
 #if DEBUG
 		std::cout<<"Could not bind the listening socket to port\n";
 #endif
