@@ -11,7 +11,10 @@
 #include "errors.h"
 
 int main(){
-	int listening_socket = socket(PF_INET,SOCK_STREAM,0); //SOCK_STREAM provides reliable 2 way communication based byte streams.	
+
+	int ret;
+	//Creating a listening socket
+	int listening_socket = create_socket(); 	
 	if(listening_socket == -1){
 #if DEBUG
 		std::cout<<"Error creating listening socket\n";
@@ -19,19 +22,10 @@ int main(){
 		return ERR_CREATE_SOCKET;
 	}
 
-	sockaddr_in listening_socket_address;
-	listening_socket_address.sin_family = PF_INET;
-	listening_socket_address.sin_port = htons(54000);
+	//Setting up the listening socket address and port
+	sockaddr_in listening_socket_address = setup_listening_socket(listening_socket,54000);
 
-	int ret = inet_pton(PF_INET,"127.0.0.1",(void *)&listening_socket_address.sin_addr);
-	if(ret == 0 || ret == -1){
-#if DEBUG
-		std::cout<<"Return code = "<<ret<<"\n";
-		std::cout<<"System error. Could not translate the specified address to sockaddr_in.sin_addr family\n";
-#endif
-		return ERR_INET_PTON_LISTENING_SOCKET;
-	}
-
+	//Binding the listening socket to the address and port specified
 	if(bind(listening_socket,(sockaddr *)&listening_socket_address,sizeof(listening_socket_address)) == -1){
 #if DEBUG
 		std::cout<<"Could not bind the listening socket to port\n";
@@ -39,31 +33,37 @@ int main(){
 		return ERR_BIND_SOCKET;
 	}
 
-	if(listen(listening_socket,SOMAXCONN) == -1){
+	//Intiating listening on the listening socket
+	ret = listening(listening_socket);
+	if(ret == -1){
 #if DEBUG
 		std::cout<<"Error listening on listening socket\n";
 #endif
 		return ERR_LISTENING;
 	}
 
+	//Setting up client socket
 	sockaddr_in client_socket_address;
 	socklen_t client_socket_size = sizeof(client_socket_address);
+	//Char arrays for storing host or client information
 	char host[NI_MAXHOST];
 	char service[NI_MAXSERV];
 
-	int client_socket = accept(listening_socket,(sockaddr *)&client_socket_address,&client_socket_size);
+	//Accept connections from client sockets on listening socket
+	int client_socket = accept_connections(listening_socket,&client_socket_address,&client_socket_size);
 	if(client_socket == -1){
 #if DEBUG
 		std::cout<<"Error connecting client\n";
 #endif
 		return ERR_CLIENT_CONNECT;
 	}
-	
+
+	//Closing listening socket	
 	close(listening_socket);
 	
+	//Retrieving host/client info
 	memset(host,0,NI_MAXHOST);
 	memset(service,0,NI_MAXSERV);
-	
 	ret = getnameinfo((sockaddr *)&client_socket_address,sizeof(client_socket_address),host,NI_MAXHOST,service,NI_MAXSERV,0);
 	if(ret)
 		std::cout<<host<<" connected on "<<service<<"\n";
@@ -72,6 +72,7 @@ int main(){
 		std::cout<<host<<" connected on "<<ntohs(client_socket_address.sin_port)<<"\n";
 	}
 
+	//Sending and receving data from client
 	char buf[4096];
 	while(true){
 		memset(buf,0,4096);

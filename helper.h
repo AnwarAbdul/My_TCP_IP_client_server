@@ -22,6 +22,37 @@
 
 /*
  * @brief API for creating a socket
+ *
+ * @param None
+ * @return Integer type return code of execution of "socket" call
  */
+int create_socket();
 
-#endif
+/*
+ * @brief API for setting up listening socket with an address and port
+ *
+ * @param Listening socket file id
+ * @param Port number to be used for listening socket of integer type
+ * @return sockaddr_in type structure is returned which will have the address inside sin_addr member and port info in sin_port 
+ */
+sockaddr_in setup_listening_socket(int,int);
+
+/*
+ * @brief API for starting the listening on listening socket
+ *
+ * @param Listening socket file ID
+ * @return Integer return code of the "listen" system call
+ */
+int listening(int);
+
+/*
+ * @brief API for listening socket to accept client socket connection
+ *
+ * @param Listening socket file ID
+ * @param sockaddr_in structure pointer of client socket to store client socket information within sin_addr and sin_port members
+ * @param socklen_t pointer to client socket address information
+ * @return Integer return code of "accept" system call used which will actually be a file ID for client socket
+ */
+int accept_connections(int,sockaddr_in *,socklen_t *);
+
+#endif 
