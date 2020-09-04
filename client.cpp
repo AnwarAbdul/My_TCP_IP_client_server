@@ -41,7 +41,7 @@ int main(){
 		std::cout<<">";
 		std::getline(std::cin,input_text);
 		strcpy(buf,input_text.c_str());
-		ret = send(_socket,buf,4096,0);
+		ret = send(_socket,buf,input_text.length(),0);
 		if(ret == -1){
 			std::cout<<"Could not send to server\n";
 			continue;

@@ -88,7 +88,7 @@ int main(){
 		std::cout<<"Received: "<<std::string(buf,0,bytes_received)<<"\n";
 		std::getline(std::cin,input_text);
 		strcpy(buf,input_text.c_str());
-		send(client_socket,buf,4096,0);		
+		send(client_socket,buf,input_text.length(),0);		
 	}
 	close(client_socket);
 	return 0;	
