@@ -75,6 +75,7 @@ int main(){
 
 	//Sending and receving data from client
 	char buf[4096];
+	std::string input_text;
 	while(true){
 		memset(buf,0,4096);
 		int bytes_received = recv(client_socket,buf,4096,0);
@@ -85,7 +86,8 @@ int main(){
 		}
 	
 		std::cout<<"Received: "<<std::string(buf,0,bytes_received)<<"\n";
-
+		std::getline(std::cin,input_text);
+		strcpy(buf,input_text.c_str());
 		send(client_socket,buf,4096,0);		
 	}
 	close(client_socket);
