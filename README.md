@@ -10,3 +10,6 @@ Steps followed for Server creation
 7. Close the listening socket. This ensures that there will be only 1 client socket communication.
 8. The while loop for receiving messages from client and processing it comes after the "close" call. This is because there are queues internally which will be processing connections and messages till the connection is closed from client side based on the setup for client and listening socket done earlier. And as specified earlier, the listening socket will close after 1 client is connected to it, meaning it will not allow further client connections.
 9. Inside while loop, "recv" call processes the message from client and the same is relayed back to client using "send".
+
+Steps followed for creating TCP/IP client
+1. 

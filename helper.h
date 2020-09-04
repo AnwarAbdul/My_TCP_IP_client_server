@@ -29,18 +29,18 @@
 int create_socket();
 
 /*
- * @brief API for setting up listening socket with an address and port
+ * @brief API for setting up socket with an address and port
  *
- * @param Listening socket file id
- * @param Port number to be used for listening socket of integer type
+ * @param Port number to be used for socket of integer type
+ * @param Address of socket to be used in string format
  * @return sockaddr_in type structure is returned which will have the address inside sin_addr member and port info in sin_port 
  */
-sockaddr_in setup_listening_socket(int,int);
+sockaddr_in setup_socket(int,std::string);
 
 /*
  * @brief API for binding socket ID to specified address and port info present in its corresponding sockaddr_in structure
  *
- * @param Listening socket file id
+ * @param Socket file id
  * @param sockaddr_in pointer to the socket info of address & port
  * @return Return code of "bind" system call
  */

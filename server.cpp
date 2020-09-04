@@ -23,7 +23,7 @@ int main(){
 	}
 
 	//Setting up the listening socket address and port
-	sockaddr_in listening_socket_address = setup_listening_socket(listening_socket,54000);
+	sockaddr_in listening_socket_address = setup_socket(54000,"0.0.0.0");
 
 	//Binding the listening socket to the address and port specified
 	ret = bind_socket_port(listening_socket,&listening_socket_address);
