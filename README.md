@@ -1,4 +1,4 @@
-This is a simple TCP/IP client server project written in C++ for Unix based operating systems. Only tested on MacOS so far.
+This is a simple TCP/IP client server project written in C++ for Unix based operating systems. Tested on MacOS & Linux.
 
 Usage
 1. Compilation needs a Unix OS with g++ compiler
